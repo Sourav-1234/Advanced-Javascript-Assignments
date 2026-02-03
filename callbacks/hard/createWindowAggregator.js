@@ -14,7 +14,31 @@
 // - On each new value, compute and emit the current average.
 // - Before N values are received, compute the average
 //   using only the available values.
-function createWindowAggregator(windowSize, onWindowReady) {}
+/**
+ * Creates a sliding window aggregator that computes the moving average.
+ * @param {number} windowSize - Maximum number of elements to consider in the window
+ * @param {function} onWindowReady - Callback called with the current average after each new value
+ * @returns {function} addValue - Function to add a new value to the window
+ */
+function createWindowAggregator(windowSize, onWindowReady) {
+  const window = [];
+
+  return function addValue(value) {
+    // Add new value
+    window.push(value);
+
+    // Maintain fixed window size
+    if (window.length > windowSize) {
+      window.shift();
+    }
+
+    // Compute average
+    const sum = window.reduce((acc, v) => acc + v, 0);
+    const average = sum / window.length;
+
+    // Emit average
+    onWindowReady(average);
+  };
+}
 
 module.exports = createWindowAggregator;
-

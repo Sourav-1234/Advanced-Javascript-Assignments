@@ -17,12 +17,52 @@
 // 4. Tasks must execute asynchronously
 
 class FairScheduler {
-  constructor(agingFactor = 1) {}
+  constructor(agingFactor = 1) {
+    this.agingFactor = agingFactor; // Amount priority increases per millisecond
+    this.queue = [];
+    this.running = false;
+  }
 
-  schedule(task, priority = 0) {}
+  schedule(task, priority = 0) {
+    this.queue.push({
+      task,
+      basePriority: priority,
+      enqueuedAt: Date.now()
+    });
+  }
 
-  async run() {}
+  async run() {
+    if (this.running) return;
+    this.running = true;
+
+    while (this.queue.length > 0) {
+      const now = Date.now();
+
+      // Compute effective priority with aging
+      this.queue.forEach(item => {
+        const waitTime = now - item.enqueuedAt; // milliseconds
+        item.effectivePriority =
+          item.basePriority + waitTime * this.agingFactor;
+      });
+
+      // Sort by effective priority (descending), FIFO for ties
+      this.queue.sort((a, b) => {
+        const diff = b.effectivePriority - a.effectivePriority;
+        if (diff === 0) return a.enqueuedAt - b.enqueuedAt;
+        return diff;
+      });
+
+      const next = this.queue.shift();
+
+      try {
+        await next.task();
+      } catch (err) {
+        console.error("Task failed:", err);
+      }
+    }
+
+    this.running = false;
+  }
 }
 
 module.exports = FairScheduler;
-

@@ -14,6 +14,13 @@
 
 // module.exports = getUserPosts;
 
-function getUserPosts(userId) {}
+function getUserPosts(userId) {
+
+    return fetchUser(userId)
+       .then(user=> fetchPosts(user.id))
+       .catch(e =>{
+        console.error(e);
+       });
+}
 
 module.exports = getUserPosts;

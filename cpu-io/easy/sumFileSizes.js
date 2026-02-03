@@ -11,6 +11,29 @@
 
 const fs = require("fs").promises;
 
-async function sumFileSizes(filePaths) {}
+/**
+ * Sum the sizes of all files in filePaths.
+ * Rejects if any file does not exist or another error occurs.
+ * @param {string[]} filePaths
+ * @returns {Promise<number>}
+ */
+async function sumFileSizes(filePaths) {
+  if (!Array.isArray(filePaths)) {
+    throw new TypeError("filePaths must be an array");
+  }
+
+  const sizePromises = filePaths.map(async (filePath) => {
+    try {
+      const stats = await fs.stat(filePath);
+      return stats.size;
+    } catch (err) {
+      // Reject if file does not exist or any error occurs
+      throw new Error(`Cannot read file: ${filePath}`);
+    }
+  });
+
+  const sizes = await Promise.all(sizePromises);
+  return sizes.reduce((total, size) => total + size, 0);
+}
 
 module.exports = sumFileSizes;

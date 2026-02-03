@@ -11,6 +11,57 @@
 // - Run at most `limit` tasks in parallel until all are completed.
 // - Return results in the original task order via onAllFinished.
 
-function mapLimit(tasks, limit, onAllFinished) {}
+// callbacks/hard/mapLimit.js
+
+function mapLimit(tasks, limit, onAllFinished) {
+  const results = new Array(tasks.length);
+  let inFlight = 0;
+  let index = 0;
+  let completed = 0;
+  let hasError = false;
+
+  function next() {
+    // All tasks done
+    if (completed === tasks.length) {
+      return onAllFinished(null, results);
+    }
+
+    // Start tasks while under concurrency limit
+    while (inFlight < limit && index < tasks.length) {
+      const currentIndex = index++;
+      const task = tasks[currentIndex];
+      inFlight++;
+
+      try {
+        task((err, result) => {
+          inFlight--;
+          if (hasError) return;
+
+          if (err) {
+            hasError = true;
+            return onAllFinished(err);
+          }
+
+          results[currentIndex] = result;
+          completed++;
+          next(); // Start next task if available
+        });
+      } catch (err) {
+        inFlight--;
+        if (!hasError) {
+          hasError = true;
+          return onAllFinished(err);
+        }
+      }
+    }
+  }
+
+  // Edge case: empty tasks array
+  if (tasks.length === 0) {
+    return onAllFinished(null, []);
+  }
+
+  next();
+}
 
 module.exports = mapLimit;

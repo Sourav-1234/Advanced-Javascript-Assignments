@@ -3,6 +3,17 @@
 // You are required to write a function named promisify that takes a function following the callback pattern (error, data) => void. 
 // The goal is to convert this function into one that returns a Promise. 
 // The Promise should resolve with the data when no error occurs and reject when an error is provided.
-function callbackify(fn) {}
+// Converts a promise-returning function into a callback-style function
+function callbackify(fn) {
+  return function (...args) {
+    // Extract the last argument as the callback
+    const callback = args.pop();
+
+    // Call the original function and handle the promise
+    fn(...args)
+      .then((result) => callback(null, result))
+      .catch((err) => callback(err));
+  };
+}
 
 module.exports = callbackify;

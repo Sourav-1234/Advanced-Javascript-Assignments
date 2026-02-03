@@ -1,10 +1,31 @@
+/**
+ * Wraps a Promise so it can be cancelled via an AbortSignal
+ * @param {Promise} promise - The original Promise
+ * @param {AbortSignal} signal - The signal to listen for cancellation
+ * @returns {Promise} - A new Promise that rejects on abort
+ */
+function makeCancellable(promise, signal) {
+  return new Promise((resolve, reject) => {
+    if (signal.aborted) {
+      return reject(new Error("Aborted"));
+    }
 
-// Problem Description – Abortable Promise Wrapper
+    const onAbort = () => {
+      reject(new Error("Aborted"));
+    };
 
-// You are required to wrap a Promise so that it can be cancelled using an AbortSignal.
-// If the signal is aborted before the Promise settles, the wrapper should immediately reject with an appropriate error. 
-// If not aborted, it should resolve or reject normally.
+    signal.addEventListener("abort", onAbort);
 
-function makeCancellable(promise, signal) {}
+    promise
+      .then(value => {
+        signal.removeEventListener("abort", onAbort);
+        resolve(value);
+      })
+      .catch(err => {
+        signal.removeEventListener("abort", onAbort);
+        reject(err);
+      });
+  });
+}
 
 module.exports = makeCancellable;

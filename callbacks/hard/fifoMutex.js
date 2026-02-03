@@ -12,12 +12,49 @@
 // - Run immediately if free.
 // - Queue when locked (FIFO).
 // - Auto-release on task completion.
+// callbacks/hard/fifoMutex.js
+
 class Mutex {
-  constructor() {}
+  constructor() {
+    this.locked = false;
+    this.queue = [];
+  }
 
-  lock(task, onComplete) {}
+  /**
+   * Lock the mutex and run a task.
+   * @param {function(cb: function)} task - Node-style task accepting a callback.
+   * @param {function} onComplete - Callback called when task finishes (err, result).
+   */
+  lock(task, onComplete) {
+    const wrappedTask = () => {
+      // Wrap task in try/catch and ensure next task runs
+      try {
+        task((err, result) => {
+          if (onComplete) onComplete(err, result);
+          this._release(); // Always release mutex after task finishes
+        });
+      } catch (err) {
+        if (onComplete) onComplete(err);
+        this._release();
+      }
+    };
 
-  _release() {}
+    if (!this.locked) {
+      this.locked = true;
+      wrappedTask(); // Run immediately
+    } else {
+      this.queue.push(wrappedTask); // Queue for FIFO
+    }
+  }
+
+  _release() {
+    if (this.queue.length > 0) {
+      const nextTask = this.queue.shift(); // FIFO
+      nextTask();                           // Run next task
+    } else {
+      this.locked = false;                  // No tasks left, unlock
+    }
+  }
 }
 
 module.exports = Mutex;

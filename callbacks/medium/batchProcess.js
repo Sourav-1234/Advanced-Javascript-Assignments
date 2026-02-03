@@ -12,6 +12,53 @@
 // - Start new work as soon as one finishes.
 // - Stop and return an error if any task fails.
 
-function batchProcess(items, limit, worker, onComplete) {}
+// callbacks/medium/batchProcess.js
+
+function batchProcess(items, limit, worker, onComplete) {
+  const results = new Array(items.length);
+  let inFlight = 0;      // currently running tasks
+  let index = 0;         // next item to start
+  let completed = 0;     // completed tasks
+  let hasError = false;  // flag if any task failed
+
+  function next() {
+    if (hasError) return;
+
+    // All tasks done
+    if (completed === items.length) {
+      return onComplete(null, results);
+    }
+
+    // Start tasks while we have capacity
+    while (inFlight < limit && index < items.length) {
+      const currentIndex = index++;
+      inFlight++;
+
+      worker(items[currentIndex], (err, result) => {
+        inFlight--;
+
+        if (hasError) return;
+
+        if (err) {
+          hasError = true;
+          return onComplete(err);
+        }
+
+        results[currentIndex] = result;
+        completed++;
+
+        // Trigger next tasks if available
+        next();
+      });
+    }
+  }
+
+  // Handle empty array immediately
+  if (items.length === 0) {
+    return onComplete(null, []);
+  }
+
+  next();
+}
 
 module.exports = batchProcess;
