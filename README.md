@@ -46,7 +46,7 @@ Assignments are now organized by topic and then by difficulty:
    ```sh
    npm run all
    ```
-   ![Alt text](/Advanced-Javascript-Assignments/Npm-run-all.png)
+   ![Running all tests](./images/npm-run-all.png)
 
 ---
 ## Demo Video
