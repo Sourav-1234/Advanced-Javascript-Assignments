@@ -5,8 +5,7 @@
 
 function retryOnce(fn) {
   return function callbackWrapper(...args) {
-    const cb = args.pop(); // extract the callback
-
+    const cb = args.pop(); 
     let called = false;
 
     const attempt = (attemptsLeft) => {
@@ -17,13 +16,13 @@ function retryOnce(fn) {
             cb(err, result);
           }
         } else {
-          // retry once
+         
           attempt(attemptsLeft - 1);
         }
       });
     };
 
-    attempt(1); // allow 1 retry
+    attempt(1); 
   };
 }
 

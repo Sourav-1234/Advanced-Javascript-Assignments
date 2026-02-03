@@ -13,9 +13,8 @@ async function yieldedCPU(iterations, chunkSize = 50) {
 
   let sum = 0;
   for (let i = 0; i < iterations; i++) {
-    sum += i; // Sum of first N numbers (0-based) → matches test expectation
-
-    // Yield to the event loop frequently
+    sum += i; 
+    
     if (i > 0 && i % chunkSize === 0) {
       await new Promise(resolve => setTimeout(resolve, 0));
     }

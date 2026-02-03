@@ -14,16 +14,16 @@ class DynamicPriorityQueue {
     this.queue = [];
   }
 
-  // Optionally adjust concurrency limit dynamically
+
   setLimit(newLimit) {
     this.concurrency = newLimit;
     this._runNext();
   }
 
-  // Add a task with priority and callback
+  
   add(task, priority = 0, onComplete) {
     this.queue.push({ task, priority, onComplete });
-    // Sort queue: higher priority first
+   
     this.queue.sort((a, b) => b.priority - a.priority);
     this._runNext();
   }
@@ -33,10 +33,10 @@ class DynamicPriorityQueue {
       const { task, onComplete } = this.queue.shift();
       this.running++;
 
-      // Support Node-style callback tasks
+     
       let called = false;
       const cb = (err, result) => {
-        if (called) return; // prevent multiple calls
+        if (called) return; 
         called = true;
         if (onComplete) onComplete(err, result);
         this.running--;
@@ -45,7 +45,7 @@ class DynamicPriorityQueue {
 
       try {
         const result = task(cb);
-        // If task returns a Promise, resolve it
+       
         if (result && typeof result.then === "function") {
           result.then((res) => cb(null, res)).catch((err) => cb(err));
         }

@@ -6,26 +6,20 @@
 
 const pendingRequests = new Map();
 
-/**
- * Prevents duplicate network calls for the same id.
- * @param {string} id - Unique identifier for the request
- * @param {Function} apiCall - Function that returns a Promise (network call)
- * @returns {Promise} - Resolves with the result of apiCall
- */
+
 function deduplicatedFetch(id, apiCall) {
   if (pendingRequests.has(id)) {
     return pendingRequests.get(id);
   }
 
-  // Call the API with the ID
+  
   const promise = apiCall(id)
     .then(result => {
-      pendingRequests.delete(id); // Clean up after success
+      pendingRequests.delete(id); 
       return result;
     })
     .catch(err => {
-      pendingRequests.delete(id); // Clean up after failure
-      throw err;
+      pendingRequests.delete(id); 
     });
 
   pendingRequests.set(id, promise);

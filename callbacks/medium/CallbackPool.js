@@ -9,12 +9,11 @@
 
 class CallbackPool {
   constructor(limit) {
-    this.limit = limit;      // concurrency limit
-    this.running = 0;        // currently running tasks
-    this.queue = [];         // queued tasks
-  }
+    this.limit = limit;      
+    this.running = 0;       
+    this.queue = [];        
 
-  // Run a task with optional Node-style callback
+  
   run(task, onComplete) {
     this.queue.push({ task, onComplete });
     this._next();
@@ -25,7 +24,7 @@ class CallbackPool {
       const { task, onComplete } = this.queue.shift();
       this.running++;
 
-      // Wrap Node-style callback task in a Promise
+      
       let called = false;
       const cb = (err, result) => {
         if (called) return;
@@ -36,8 +35,8 @@ class CallbackPool {
       };
 
       try {
-        const result = task(cb); // call task with Node-style callback
-        // If task returns a Promise, resolve it
+        const result = task(cb); 
+
         if (result && typeof result.then === "function") {
           result.then((res) => cb(null, res)).catch((err) => cb(err));
         }

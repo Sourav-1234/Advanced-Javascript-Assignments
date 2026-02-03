@@ -11,7 +11,6 @@ function rejectAfter(ms, callback) {
     }, ms);
   });
 
-  // Support optional Node-style callback
   if (typeof callback === "function") {
     promise
       .then((res) => callback(null, res))

@@ -5,30 +5,30 @@
 // If an earlier request resolves after a later one, its result must be ignored
 
 function switchMap(apiCall) {
-  let latestCallId = 0; // Tracks the most recent call
+  let latestCallId = 0; 
 
   return function (...args) {
     const callId = ++latestCallId;
 
     return new Promise((resolve, reject) => {
-      // Execute the API call
+      
       Promise.resolve()
         .then(() => apiCall(...args))
         .then(result => {
-          // Only resolve if this is the latest call
+         
           if (callId === latestCallId) {
             resolve(result);
           } else {
-            // Stale calls resolve as undefined
+            
             resolve(undefined);
           }
         })
         .catch(error => {
-          // Only reject if this is the latest call
+          
           if (callId === latestCallId) {
             reject(error);
           } else {
-            // Stale calls resolve as undefined
+            
             resolve(undefined);
           }
         });

@@ -15,8 +15,7 @@ async function batchAll(tasks, batchSize) {
   for (let i = 0; i < tasks.length; i += batchSize) {
     const batch = tasks.slice(i, i + batchSize);
 
-    // Execute all tasks in the current batch concurrently
-    // and wait for all to finish before proceeding
+    
     const batchResults = await Promise.all(batch.map(task => task()));
     results.push(...batchResults);
   }

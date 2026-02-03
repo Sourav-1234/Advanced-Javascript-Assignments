@@ -27,11 +27,10 @@ class Mutex {
    */
   lock(task, onComplete) {
     const wrappedTask = () => {
-      // Wrap task in try/catch and ensure next task runs
+     
       try {
         task((err, result) => {
-          if (onComplete) onComplete(err, result);
-          this._release(); // Always release mutex after task finishes
+          if (onComplete) onComplete(err, result);// Always release mutex after task finishes
         });
       } catch (err) {
         if (onComplete) onComplete(err);
@@ -41,18 +40,18 @@ class Mutex {
 
     if (!this.locked) {
       this.locked = true;
-      wrappedTask(); // Run immediately
+      wrappedTask(); 
     } else {
-      this.queue.push(wrappedTask); // Queue for FIFO
+      this.queue.push(wrappedTask); 
     }
   }
 
   _release() {
     if (this.queue.length > 0) {
-      const nextTask = this.queue.shift(); // FIFO
-      nextTask();                           // Run next task
+      const nextTask = this.queue.shift(); 
+      nextTask();                           
     } else {
-      this.locked = false;                  // No tasks left, unlock
+      this.locked = false;                  
     }
   }
 }

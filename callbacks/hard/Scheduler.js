@@ -14,20 +14,20 @@
 
 class Scheduler {
   constructor() {
-    this.queue = []; // Array of {task, priority}
+    this.queue = []; 
     this.running = false;
   }
 
-  // Schedule a task with optional priority (higher number = higher priority)
+  
   schedule(task, priority = 0) {
     this.queue.push({ task, priority });
-    // Keep queue sorted by priority (highest first)
+   
     this.queue.sort((a, b) => b.priority - a.priority);
   }
 
-  // Run all tasks in priority order and call onAllFinished when done
+  
   run(onAllFinished) {
-    if (this.running) return; // Prevent multiple runs
+    if (this.running) return; 
     this.running = true;
 
     const processNext = () => {
@@ -38,14 +38,14 @@ class Scheduler {
 
       const { task } = this.queue.shift();
 
-      // Execute task, providing a callback
+    
       try {
         task((err) => {
           if (err) {
-            // Log error but continue with next tasks
+           
             console.error("Task error:", err);
           }
-          // Yield to event loop before next task
+          
           setTimeout(processNext, 0);
         });
       } catch (err) {

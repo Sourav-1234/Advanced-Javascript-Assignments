@@ -24,7 +24,7 @@ function createWindowAggregator(windowSize, onWindowReady) {
   const window = [];
 
   return function addValue(value) {
-    // Add new value
+   
     window.push(value);
 
     // Maintain fixed window size
@@ -32,11 +32,11 @@ function createWindowAggregator(windowSize, onWindowReady) {
       window.shift();
     }
 
-    // Compute average
+   
     const sum = window.reduce((acc, v) => acc + v, 0);
     const average = sum / window.length;
 
-    // Emit average
+   
     onWindowReady(average);
   };
 }

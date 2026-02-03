@@ -6,9 +6,9 @@
 // The final result must preserve the original order of the input array.
 async function mapAsyncLimit(array, limit, asyncFn) {
   const results = new Array(array.length);
-  let nextIndex = 0; // Track the next task to start
+  let nextIndex = 0;
 
-  // Worker function to process tasks
+
   async function worker() {
     while (true) {
       const currentIndex = nextIndex++;
@@ -18,14 +18,14 @@ async function mapAsyncLimit(array, limit, asyncFn) {
     }
   }
 
-  // Launch workers up to concurrency limit
+  
   const workers = [];
   const concurrency = Math.min(limit, array.length);
   for (let i = 0; i < concurrency; i++) {
     workers.push(worker());
   }
 
-  // Wait for all workers to finish
+  
   await Promise.all(workers);
 
   return results;

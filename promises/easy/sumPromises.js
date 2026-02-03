@@ -7,7 +7,7 @@
 async function sumPromises(p1, p2) {
   // Wait for both promises to resolve in parallel
   const [a, b] = await Promise.all([p1, p2]);
-  return a + b; // Return the sum
+  return a + b; 
 }
 
 module.exports = sumPromises;

@@ -6,10 +6,10 @@
 // Converts a promise-returning function into a callback-style function
 function callbackify(fn) {
   return function (...args) {
-    // Extract the last argument as the callback
+    
     const callback = args.pop();
 
-    // Call the original function and handle the promise
+    
     fn(...args)
       .then((result) => callback(null, result))
       .catch((err) => callback(err));

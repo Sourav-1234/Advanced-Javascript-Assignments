@@ -8,16 +8,15 @@
 // (such as timers or async callbacks) from running until it completes.
 
 
-// File: cpu-io/easy/heavyCPU.js
 
-// File: cpu-io/easy/heavyCPU.js
+
 
 function heavyCPU(iterations) {
   console.log("Heavy CPU task started");
 
   let sum = 0;
   for (let i = 0; i < iterations; i++) {
-    sum += i; // sum 0 + 1 + 2 + ... + (iterations - 1)
+    sum += i; 
   }
 
   console.log("Heavy CPU task finished. Result:", sum);

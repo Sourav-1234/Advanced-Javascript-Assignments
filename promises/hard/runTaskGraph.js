@@ -20,7 +20,7 @@ async function runTaskGraph(tasks) {
     throw new TypeError("tasks must be an array");
   }
 
-  // Map task id → task object
+  
   const taskMap = new Map();
   for (const task of tasks) {
     if (!task.id || typeof task.action !== "function") {
@@ -29,7 +29,6 @@ async function runTaskGraph(tasks) {
     taskMap.set(task.id, task);
   }
 
-  // Validate dependencies exist
   for (const task of tasks) {
     for (const dep of task.dependencies || []) {
       if (!taskMap.has(dep)) {
@@ -39,17 +38,17 @@ async function runTaskGraph(tasks) {
   }
 
   const results = new Map();
-  const executing = new Map(); // Memoize in-progress tasks
+  const executing = new Map(); 
 
-  // Recursive function to execute a task
+  
   async function execute(taskId, path = new Set()) {
-    if (results.has(taskId)) return results.get(taskId); // Already finished
+    if (results.has(taskId)) return results.get(taskId); 
 
     if (path.has(taskId)) {
       throw new Error(`Circular dependency detected at task "${taskId}"`);
     }
 
-    // If already executing, return the same promise
+    
     if (executing.has(taskId)) return executing.get(taskId);
 
     path.add(taskId);
@@ -74,7 +73,7 @@ async function runTaskGraph(tasks) {
     }
   }
 
-  // Start all tasks
+  
   await Promise.all(tasks.map(t => execute(t.id)));
 
   return results;

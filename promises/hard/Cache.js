@@ -12,30 +12,29 @@
 class Cache {
   constructor(ttl = 5000) {
     this.ttl = ttl;
-    this.cache = new Map();        // key -> { value, expiry }
-    this.inFlight = new Map();     // key -> Promise
-    this.refreshThreshold = ttl * 0.2; // 20% TTL remaining
+    this.cache = new Map();        
+    this.inFlight = new Map();     
+    this.refreshThreshold = ttl * 0.2; 
   }
 
   get(key, fetcher) {
     const now = Date.now();
     const cached = this.cache.get(key);
 
-    // 1️⃣ Return cached value if valid
+   
     if (cached && cached.expiry > now) {
-      // If close to expiry, refresh in background
+      
       if (cached.expiry - now <= this.refreshThreshold) {
         this._backgroundRefresh(key, fetcher);
       }
       return Promise.resolve(cached.value);
     }
 
-    // 2️⃣ Deduplicate concurrent fetches
+   
     if (this.inFlight.has(key)) {
       return this.inFlight.get(key);
     }
 
-    // 3️⃣ Fetch fresh value
     const promise = Promise.resolve()
       .then(fetcher)
       .then(value => {
@@ -68,7 +67,7 @@ class Cache {
         this.inFlight.delete(key);
       })
       .catch(() => {
-        // Ignore background refresh failures
+       
         this.inFlight.delete(key);
       });
 

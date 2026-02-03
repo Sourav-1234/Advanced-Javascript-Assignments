@@ -21,7 +21,7 @@ function hedgedRequest(primary, secondary, timeoutMs, onComplete) {
     });
   }
 
-  // Start PRIMARY immediately
+  
   promisifyFn(primary)
     .then(result => {
       primaryDone = true;
@@ -35,7 +35,7 @@ function hedgedRequest(primary, secondary, timeoutMs, onComplete) {
       }
     });
 
-  // Start SECONDARY after timeout
+  
   setTimeout(() => {
     promisifyFn(secondary)
       .then(result => {

@@ -9,20 +9,20 @@
 
 async function ioWithTimeout(fn, ms) {
   return new Promise((resolve, reject) => {
-    // Set up the timeout
+    
     const timeoutId = setTimeout(() => {
-      reject("Timeout"); // reject with string "Timeout" as per your test
+      reject("Timeout"); 
     }, ms);
 
-    // Run the async function
+    
     fn()
       .then((result) => {
-        clearTimeout(timeoutId); // clear timeout if done
+        clearTimeout(timeoutId); 
         resolve(result);
       })
       .catch((err) => {
         clearTimeout(timeoutId);
-        reject(err); // propagate errors from the function
+        reject(err); 
       });
   });
 }

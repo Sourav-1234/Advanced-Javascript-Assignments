@@ -10,17 +10,17 @@
 async function retryWithJitter(fn, retries = 3, baseDelay = 1000) {
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
-      return await fn(); // Try executing the function
+      return await fn(); 
     } catch (err) {
       if (attempt === retries) {
-        // Max retries exhausted
+        
         throw err;
       }
 
-      // Exponential backoff: baseDelay * 2^attempt
+    
       const delay = baseDelay * Math.pow(2, attempt);
 
-      // Add jitter: random 0-20% of delay
+      
       const jitter = Math.random() * 0.2 * delay;
 
       const totalDelay = delay + jitter;

@@ -12,11 +12,11 @@ function once(fn) {
   let pending = [];
 
   return function (...args) {
-    const cb = args[args.length - 1]; // assume last arg is callback
+    const cb = args[args.length - 1]; 
     if (typeof cb !== "function") throw new Error("Callback required");
 
     if (called) {
-      // If already called, immediately invoke callback with cached result
+     
       return setTimeout(() => cb(error, result), 0);
     }
 
@@ -27,7 +27,7 @@ function once(fn) {
       fn(...args.slice(0, -1), (err, res) => {
         error = err;
         result = res;
-        // Call all pending callbacks
+        
         pending.forEach((c) => c(err, res));
         pending = [];
       });

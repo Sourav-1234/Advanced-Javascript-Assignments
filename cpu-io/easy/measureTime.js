@@ -15,7 +15,7 @@
  * @returns {Promise<number>} - The time taken in milliseconds
  */
 async function measureTime(fn) {
-  // Use performance.now() if available for higher precision
+  
   const now =
     typeof performance !== "undefined" && performance.now
       ? () => performance.now()
@@ -24,11 +24,11 @@ async function measureTime(fn) {
   const start = now();
 
   try {
-    await fn(); // Execute the async function
+    await fn(); 
   } catch (err) {
     const end = now();
     console.log(`Execution time: ${end - start} ms`);
-    throw err; // Rethrow the error to propagate it
+    throw err; 
   }
 
   const end = now();

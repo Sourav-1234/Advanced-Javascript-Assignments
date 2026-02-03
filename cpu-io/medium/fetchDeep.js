@@ -16,7 +16,7 @@
 // fetchDeep.js
 
 async function fetchDeep(ids, fetcher, maxDepth = 5) {
-  // Helper: recursively fetch a single ID
+  
   async function fetchSingle(id, depth = 0) {
     if (depth > maxDepth) {
       throw new Error("Max redirect depth exceeded");
@@ -31,7 +31,7 @@ async function fetchDeep(ids, fetcher, maxDepth = 5) {
     return result;
   }
 
-  // Process all keys in parallel
+  
   const entries = await Promise.all(
     Object.entries(ids).map(async ([key, id]) => {
       const value = await fetchSingle(id, 0);

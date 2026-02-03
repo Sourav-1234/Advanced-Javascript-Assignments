@@ -21,12 +21,12 @@ function mapLimit(tasks, limit, onAllFinished) {
   let hasError = false;
 
   function next() {
-    // All tasks done
+   
     if (completed === tasks.length) {
       return onAllFinished(null, results);
     }
 
-    // Start tasks while under concurrency limit
+   
     while (inFlight < limit && index < tasks.length) {
       const currentIndex = index++;
       const task = tasks[currentIndex];
@@ -44,7 +44,7 @@ function mapLimit(tasks, limit, onAllFinished) {
 
           results[currentIndex] = result;
           completed++;
-          next(); // Start next task if available
+          next(); 
         });
       } catch (err) {
         inFlight--;
@@ -56,7 +56,7 @@ function mapLimit(tasks, limit, onAllFinished) {
     }
   }
 
-  // Edge case: empty tasks array
+
   if (tasks.length === 0) {
     return onAllFinished(null, []);
   }

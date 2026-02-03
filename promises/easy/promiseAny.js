@@ -21,7 +21,7 @@ function promiseAny(promises) {
     promises.forEach((p, index) => {
       Promise.resolve(p)
         .then(value => {
-          // Resolve immediately on first fulfilled promise
+          
           resolve(value);
         })
         .catch(err => {

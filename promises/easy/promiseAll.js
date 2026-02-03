@@ -5,7 +5,7 @@
 // It must resolve with an array of results in the same order once all inputs resolve, or reject immediately if any input rejects.
 function promiseAll(promises) {
   return new Promise((resolve, reject) => {
-    // Validate input
+    
     if (!Array.isArray(promises)) {
       return reject(new TypeError("Argument must be an array"));
     }
@@ -14,7 +14,7 @@ function promiseAll(promises) {
     let completed = 0;
     const total = promises.length;
 
-    // Edge case: empty array
+   
     if (total === 0) {
       return resolve([]);
     }
@@ -30,7 +30,7 @@ function promiseAll(promises) {
           }
         })
         .catch(err => {
-          // Reject immediately on first failure
+          
           reject(err);
         });
     });

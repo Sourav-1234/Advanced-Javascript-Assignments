@@ -9,21 +9,21 @@
 
 
 function eventLoopRace() {
-  // Synchronous log
+  
   console.log("1: Synchronous");
 
-  // Macrotask (setTimeout)
+  
   setTimeout(() => {
     console.log("2: Macrotask (I/O)");
   }, 0);
 
-  // Microtask (Promise)
+  
   Promise.resolve()
     .then(() => {
       console.log("3: Microtask (Promise)");
     });
 
-  // Another synchronous log
+
   console.log("4: Synchronous");
 }
 

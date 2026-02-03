@@ -19,15 +19,15 @@
 
 class LeakyBucket {
   constructor(capacity, leakRateMs) {
-    this.capacity = capacity;       // Maximum tasks allowed in bucket
-    this.leakRateMs = leakRateMs;   // Interval between task executions
-    this.queue = [];                // FIFO queue of tasks
-    this.running = 0;               // Count of currently running tasks
-    this.timer = null;              // Timer controlling leak
+    this.capacity = capacity;       
+    this.leakRateMs = leakRateMs;   
+    this.queue = [];                
+    this.running = 0;               
+    this.timer = null;            
   }
 
   add(task, onComplete) {
-    // Consider both running and queued tasks
+   
     if (this.queue.length + this.running >= this.capacity) {
       if (onComplete) onComplete(new Error("Rate Limit Exceeded"));
       return;
@@ -49,7 +49,7 @@ class LeakyBucket {
     const { task, onComplete } = this.queue.shift();
     this.running++;
 
-    // Execute task safely
+   
     try {
       task((err, result) => {
         this.running--;
@@ -60,7 +60,7 @@ class LeakyBucket {
       if (onComplete) onComplete(err);
     }
 
-    // Schedule next task respecting leakRateMs
+   
     this.timer = setTimeout(() => this._process(), this.leakRateMs);
   }
 }

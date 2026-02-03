@@ -11,7 +11,7 @@ class GuardedAPI {
     this.initPromise = null;
   }
 
-  // Initialize the API, accepts a callback-style initTask(cb)
+  
   init(initTask) {
     if (this.initialized || this.initializing) {
       return this.initPromise;
@@ -19,7 +19,7 @@ class GuardedAPI {
 
     this.initializing = true;
 
-    // Wrap initTask in a Promise
+  
     this.initPromise = new Promise((resolve, reject) => {
       initTask((err) => {
         if (err) return reject(err);
@@ -29,7 +29,7 @@ class GuardedAPI {
       .then(() => {
         this.initialized = true;
         this.initializing = false;
-        this._flush(); // Execute queued calls
+        this._flush(); 
       })
       .catch((err) => {
         this.initializing = false;
@@ -40,17 +40,16 @@ class GuardedAPI {
     return this.initPromise;
   }
 
-  // Call an API function (callback-style)
-  call(apiFn, onComplete) {
+    call(apiFn, onComplete) {
     if (this.initialized) {
       return this._execute(apiFn, onComplete);
     }
 
-    // Queue the call if initialization is not done
+   
     this.queue.push({ apiFn, onComplete });
   }
 
-  // Execute a callback-style API function
+  
   _execute(apiFn, onComplete) {
     try {
       apiFn((err, result) => {
@@ -61,7 +60,7 @@ class GuardedAPI {
     }
   }
 
-  // Flush queued calls after initialization
+
   _flush() {
     while (this.queue.length > 0) {
       const { apiFn, onComplete } = this.queue.shift();

@@ -18,7 +18,7 @@
 
 class FairScheduler {
   constructor(agingFactor = 1) {
-    this.agingFactor = agingFactor; // Amount priority increases per millisecond
+    this.agingFactor = agingFactor; 
     this.queue = [];
     this.running = false;
   }
@@ -38,14 +38,14 @@ class FairScheduler {
     while (this.queue.length > 0) {
       const now = Date.now();
 
-      // Compute effective priority with aging
+      
       this.queue.forEach(item => {
-        const waitTime = now - item.enqueuedAt; // milliseconds
+        const waitTime = now - item.enqueuedAt; 
         item.effectivePriority =
           item.basePriority + waitTime * this.agingFactor;
       });
 
-      // Sort by effective priority (descending), FIFO for ties
+      
       this.queue.sort((a, b) => {
         const diff = b.effectivePriority - a.effectivePriority;
         if (diff === 0) return a.enqueuedAt - b.enqueuedAt;

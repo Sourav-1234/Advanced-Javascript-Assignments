@@ -25,7 +25,7 @@ async function runPipeline(fns, signal) {
       throw createAbortError();
     }
 
-    // Pass signal so inner async ops (fetch, etc.) can abort
+   
     result = await fn(result, signal);
   }
 

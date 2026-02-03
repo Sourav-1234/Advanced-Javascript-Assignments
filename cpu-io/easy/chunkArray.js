@@ -14,7 +14,7 @@
 // This is a prerequisite for common patterns like batching API calls.
 
 function chunkArray(array, size) {
-  // Return empty array if input is not an array or size <= 0
+
   if (!Array.isArray(array) || size <= 0) return [];
 
   const chunks = [];

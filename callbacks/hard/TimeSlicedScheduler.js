@@ -25,18 +25,17 @@ class TimeSlicedScheduler {
     this.tasks = [];
   }
 
-  // Schedule a task (async function)
+  
   schedule(task) {
     this.tasks.push(task);
   }
 
-  // Run all tasks sequentially, yielding to the event loop between tasks
   async run() {
     for (const task of this.tasks) {
-      // Await the task (handles async tasks)
+     
       await task();
 
-      // Yield control to event loop to prevent blocking
+     
       await new Promise(resolve => setTimeout(resolve, 0));
     }
   }

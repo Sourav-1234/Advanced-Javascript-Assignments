@@ -16,35 +16,26 @@
 // and file system access control.
 
 class Semaphore {
-  /**
-   * @param {number} max - Maximum concurrent permits
-   */
+  
   constructor(max) {
-    this.max = max;       // Maximum concurrent tasks
-    this.current = 0;     // Currently running tasks
-    this.queue = [];      // Waiting tasks
+    this.max = max;       
+    this.current = 0;    
+    this.queue = [];     
   }
 
-  /**
-   * Acquire a permit
-   * @returns {Promise<void>}
-   */
   acquire() {
     return new Promise((resolve) => {
       if (this.current < this.max) {
         this.current++;
         resolve();
       } else {
-        // Queue if no permit available
+        
         this.queue.push(resolve);
       }
     });
   }
 
-  /**
-   * Release a permit and process the next task in queue
-   */
-  release() {
+    release() {
     this.current--;
     if (this.queue.length > 0) {
       const next = this.queue.shift();
@@ -53,17 +44,13 @@ class Semaphore {
     }
   }
 
-  /**
-   * Run a task within the semaphore
-   * @param {Function} task - Async function to run
-   * @returns {Promise<any>} - Resolves with task result
-   */
+  
   async run(task) {
     await this.acquire();
     try {
       return await task();
     } finally {
-      this.release(); // Ensure permit is always released
+      this.release(); 
     }
   }
 }

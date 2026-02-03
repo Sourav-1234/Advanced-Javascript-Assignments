@@ -24,12 +24,11 @@ function batchProcess(items, limit, worker, onComplete) {
   function next() {
     if (hasError) return;
 
-    // All tasks done
+   
     if (completed === items.length) {
       return onComplete(null, results);
     }
 
-    // Start tasks while we have capacity
     while (inFlight < limit && index < items.length) {
       const currentIndex = index++;
       inFlight++;
@@ -47,13 +46,12 @@ function batchProcess(items, limit, worker, onComplete) {
         results[currentIndex] = result;
         completed++;
 
-        // Trigger next tasks if available
         next();
       });
     }
   }
 
-  // Handle empty array immediately
+
   if (items.length === 0) {
     return onComplete(null, []);
   }

@@ -14,7 +14,7 @@ function fetchWithTimeout(url, ms, callback) {
     callback(new Error("Request Timed Out"));
   }, ms);
 
-  // Node-style fetch: fetch(url, cb)
+ 
   fetch(url, (err, data) => {
     if (finished) return;
 

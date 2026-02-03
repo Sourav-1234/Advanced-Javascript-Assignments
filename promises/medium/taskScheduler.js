@@ -18,14 +18,14 @@ async function taskScheduler(tasks, maxConcurrent) {
       while (true) {
         let taskIndex;
 
-        // Get next task atomically
+        
         if (currentIndex >= tasks.length) return;
         taskIndex = currentIndex++;
         
         try {
           results[taskIndex] = await tasks[taskIndex]();
         } catch (err) {
-          // Reject immediately on first failure
+          
           if (!resolved) {
             resolved = true;
             reject(err);

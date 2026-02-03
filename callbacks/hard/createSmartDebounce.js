@@ -19,13 +19,13 @@ function createSmartDebounce(worker, wait) {
     lastCallId++;
     const callId = lastCallId;
 
-    // Clear any existing debounce timer
+    
     if (timeout) clearTimeout(timeout);
 
-    // Schedule worker after debounce delay
+   
     timeout = setTimeout(() => {
       worker(input, (err, result) => {
-        // Only invoke callback if this is the latest call
+      
         if (callId === lastCallId) {
           cb(err, result);
         }

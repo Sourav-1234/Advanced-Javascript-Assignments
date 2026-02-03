@@ -7,14 +7,14 @@
 
 async function everyAsync(array, predicate) {
   for (let i = 0; i < array.length; i++) {
-    // Call predicate and await in case it's async
+    
     const result = await predicate(array[i], i, array);
 
-    // Short-circuit if predicate returns false
+    
     if (!result) return false;
   }
 
-  // All predicates passed
+
   return true;
 }
 
