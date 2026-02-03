@@ -20,17 +20,14 @@ class Mutex {
     this.queue = [];
   }
 
-  /**
-   * Lock the mutex and run a task.
-   * @param {function(cb: function)} task - Node-style task accepting a callback.
-   * @param {function} onComplete - Callback called when task finishes (err, result).
-   */
+  
   lock(task, onComplete) {
     const wrappedTask = () => {
      
       try {
         task((err, result) => {
-          if (onComplete) onComplete(err, result);// Always release mutex after task finishes
+          if (onComplete) onComplete(err, result);
+          this._release();
         });
       } catch (err) {
         if (onComplete) onComplete(err);

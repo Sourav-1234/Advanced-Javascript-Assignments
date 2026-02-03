@@ -9,11 +9,11 @@
 
 class CallbackPool {
   constructor(limit) {
-    this.limit = limit;      
-    this.running = 0;       
-    this.queue = [];        
+    this.limit = limit;
+    this.running = 0;
+    this.queue = [];
+  }
 
-  
   run(task, onComplete) {
     this.queue.push({ task, onComplete });
     this._next();
@@ -24,21 +24,26 @@ class CallbackPool {
       const { task, onComplete } = this.queue.shift();
       this.running++;
 
-      
       let called = false;
+
       const cb = (err, result) => {
         if (called) return;
         called = true;
+
         if (onComplete) onComplete(err, result);
+
         this.running--;
         this._next();
       };
 
       try {
-        const result = task(cb); 
+        const result = task(cb);
 
         if (result && typeof result.then === "function") {
-          result.then((res) => cb(null, res)).catch((err) => cb(err));
+          result.then(
+            (res) => cb(null, res),
+            (err) => cb(err)
+          );
         }
       } catch (err) {
         cb(err);

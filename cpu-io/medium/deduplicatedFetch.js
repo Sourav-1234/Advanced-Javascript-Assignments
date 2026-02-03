@@ -20,6 +20,7 @@ function deduplicatedFetch(id, apiCall) {
     })
     .catch(err => {
       pendingRequests.delete(id); 
+      throw err;
     });
 
   pendingRequests.set(id, promise);
