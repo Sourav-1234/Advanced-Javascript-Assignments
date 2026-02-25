@@ -1,49 +1,52 @@
-// Problem Description – Request Batcher
-//
-// You are required to implement a batcher that groups multiple requests
-// within a short time window into a single bulk request.
-//
-// Requirements:
-// 1. Requests added within the batch window must be sent together
-// 2. Each caller must receive only its own result
-// 3. Only one network call should be made per batch window
-
-function createBatcher(fetchBulk, delayMs = 50) {
-  let queue = [];
+function createBatcher(processorFn, maxWaitMs = 0, maxBatchSize = Infinity) {
+  let buffer = [];
+  let pending = [];
   let timer = null;
 
-  return function batchedRequest(request) {
-    return new Promise((resolve, reject) => {
-      
-      queue.push({ request, resolve, reject });
+  function flush() {
+    if (buffer.length === 0) return;
 
-      
-      if (!timer) {
-        timer = setTimeout(async () => {
-          const batch = queue;
-          queue = [];
-          timer = null;
+    const batch = buffer;
+    const waiters = pending;
 
+    buffer = [];
+    pending = [];
+
+    if (timer) {
+      clearTimeout(timer);
+      timer = null;
+    }
+
+    Promise.resolve(processorFn(batch))
+      .then(results => {
+        waiters.forEach(({ item, resolve, reject }, index) => {
           try {
-           
-            const requests = batch.map(item => item.request);
-
-           
-            const results = await fetchBulk(requests);
-
-            
-            batch.forEach(item => {
-              if (item.request in results) {
-                item.resolve(results[item.request]);
-              } else {
-                item.reject(new Error(`No result for request: ${item.request}`));
-              }
-            });
+            if (Array.isArray(results)) {
+              resolve(results[index]);      // positional mapping
+            } else {
+              resolve(results[item]);       // keyed mapping
+            }
           } catch (err) {
-            
-            batch.forEach(item => item.reject(err));
+            reject(err);
           }
-        }, delayMs);
+        });
+      })
+      .catch(error => {
+        waiters.forEach(({ reject }) => reject(error));
+      });
+  }
+
+  return function batcher(item) {
+    return new Promise((resolve, reject) => {
+      buffer.push(item);
+      pending.push({ item, resolve, reject });
+
+      if (buffer.length === 1 && maxWaitMs > 0) {
+        timer = setTimeout(flush, maxWaitMs);
+      }
+
+      if (buffer.length >= maxBatchSize) {
+        flush();
       }
     });
   };
