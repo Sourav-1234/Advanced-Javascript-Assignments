@@ -16,7 +16,7 @@
 // 3. If an undo fails, reject with "Critical Failure" including both
 //    the original error and undo error
 //
-<<<<<<< HEAD
+
 async function runSaga(stages) {
   const completed = [];
 
@@ -42,8 +42,6 @@ async function runSaga(stages) {
     }
   }
 }
-=======
-async function runSaga(stages) { }
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
+
 
 module.exports = runSaga;
