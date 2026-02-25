@@ -12,7 +12,7 @@
 
 
 class AsyncEventEmitter {
-<<<<<<< HEAD
+
   constructor() {
     this.listeners = new Map(); // event → [listeners]
   }
@@ -42,9 +42,3 @@ class AsyncEventEmitter {
 
 module.exports = AsyncEventEmitter;
 
-=======
-  constructor() { }
-}
-
-module.exports = AsyncEventEmitter;
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
