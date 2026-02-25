@@ -7,7 +7,7 @@
 // The first call should trigger apiCallFn.
 // If called again while the request is still pending, return the same promise.
 // Once it resolves or rejects, the next call should start a new request.
-<<<<<<< HEAD
+
 function createSharedRequest(apiCallFn) {
   let inFlightPromise = null;
 
@@ -23,8 +23,6 @@ function createSharedRequest(apiCallFn) {
     return inFlightPromise;
   };
 }
-=======
-function createSharedRequest(apiCallFn) { }
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
+
 
 module.exports = createSharedRequest;
