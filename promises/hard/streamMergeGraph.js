@@ -12,7 +12,7 @@
 // 3. Enforce a concurrency limit (max limit tasks running at once)
 // 4. Use streaming-style processing to avoid high memory usage
 //
-<<<<<<< HEAD
+
 async function streamMergeGraph(taskGraph, limit) {
   const results = {};
   const indegree = {};
@@ -77,8 +77,6 @@ async function streamMergeGraph(taskGraph, limit) {
     schedule();
   });
 }
-=======
-async function streamMergeGraph(taskGraph, limit) { }
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
+
 
 module.exports = streamMergeGraph;
