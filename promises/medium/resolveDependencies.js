@@ -9,7 +9,7 @@
 //
 // Input example:
 // { A: { fn }, B: { fn }, C: { fn, deps: ['A','B'] } }
-<<<<<<< HEAD
+
 async function resolveDependencies(tasks) {
   const taskPromises = {};
   const results = {};
@@ -38,9 +38,3 @@ async function resolveDependencies(tasks) {
 }
 
 module.exports = resolveDependencies;
-=======
-async function resolveDependencies(tasks) { }
-
-module.exports = resolveDependencies;
-``
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
