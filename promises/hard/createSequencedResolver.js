@@ -9,7 +9,7 @@
 //
 // Even if data arrives out of order, promises must resolve in strict order.
 // Example: waitFor(2) must not resolve until id 1 has been pushed and resolved.
-<<<<<<< HEAD
+
 function createSequencedResolver() {
   let nextToResolve = 1;
 
@@ -47,8 +47,7 @@ function createSequencedResolver() {
     },
   };
 }
-=======
-function createSequencedResolver() { }
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
+
+
 
 module.exports = createSequencedResolver;
