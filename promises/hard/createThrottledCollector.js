@@ -13,7 +13,7 @@
 //    that item was processed in
 //
 
-<<<<<<< HEAD
+
 function createThrottledCollector(batchFn, batchSize, msLimit) {
   const queue = [];
   let processing = false;
@@ -56,8 +56,6 @@ function createThrottledCollector(batchFn, batchSize, msLimit) {
     }
   };
 }
-=======
-function createThrottledCollector(batchFn, batchSize, msLimit) { }
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
+
 
 module.exports = createThrottledCollector;
