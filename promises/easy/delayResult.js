@@ -10,7 +10,7 @@
 
 function delayResult(value, ms) {
   return new Promise((resolve) => {
-    setTimeout(() => {
+    setTimeout(() => { 
       resolve(value);
     }, ms);
   });

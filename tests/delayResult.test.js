@@ -1,7 +1,6 @@
 const delayResult = require("../promises/easy/delayResult");
 
 describe("delayResult Promise", () => {
-
   test("resolves with the correct value after a delay", async () => {
     const start = Date.now();
     const result = await delayResult("Success", 100);
@@ -32,5 +31,8 @@ describe("delayResult Promise", () => {
       })
       .catch((err) => done(err));
   });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 });

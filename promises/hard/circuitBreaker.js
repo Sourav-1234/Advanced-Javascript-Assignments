@@ -12,6 +12,7 @@
 //
 // If the trial succeeds, reset to CLOSED.
 // If it fails, return to OPEN.
+<<<<<<< HEAD
 function circuitBreaker(fn, failureThreshold, resetTimeout) {
   let failureCount = 0;
   let state = "CLOSED";
@@ -61,5 +62,8 @@ function circuitBreaker(fn, failureThreshold, resetTimeout) {
     }
   };
 }
+=======
+function circuitBreaker(fn, failureThreshold, resetTimeout) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = circuitBreaker;

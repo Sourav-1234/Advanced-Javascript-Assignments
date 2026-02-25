@@ -19,10 +19,15 @@
 function createCircuitHedgedFetch() {
   let cbState = "CLOSED";
   let failureCount = 0;
+<<<<<<< HEAD
+=======
+  let lastFailureTime = null;
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
   let lastKnownGoodValue = null;
 
   return async function circuitHedgedFetch(url, options = {}) {
 
+<<<<<<< HEAD
    
     if (cbState === "OPEN") {
       return lastKnownGoodValue;
@@ -67,5 +72,10 @@ function createCircuitHedgedFetch() {
 }
 
 const circuitHedgedFetch = createCircuitHedgedFetch();
+=======
+  };
+}
+
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = circuitHedgedFetch;

@@ -11,6 +11,7 @@
 // 2. Preserve nested structures
 // 3. Detect and handle circular references using a WeakMap
 //
+<<<<<<< HEAD
 function deepClone(value, map = new WeakMap()) {
   // Handle primitives & functions
   if (value === null || typeof value !== "object") {
@@ -44,5 +45,8 @@ function deepClone(value, map = new WeakMap()) {
 
   return objClone;
 }
+=======
+function deepClone(value, map = new WeakMap()) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = deepClone;

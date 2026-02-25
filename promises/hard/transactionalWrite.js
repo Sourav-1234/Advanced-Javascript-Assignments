@@ -8,6 +8,7 @@
 // If any write fails, rollback by deleting any files that were successfully written.
 // The promise should resolve only if all files are written successfully.
 // If rollback occurs, the promise should reject with the original error.
+<<<<<<< HEAD
 const fs = require('fs').promises;
 
 async function transactionalWrite(filesData) {
@@ -34,3 +35,8 @@ async function transactionalWrite(filesData) {
 }
 
 module.exports = transactionalWrite;
+=======
+async function transactionalWrite(filesData) { }
+
+module.exports = transactionalWrite;
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954

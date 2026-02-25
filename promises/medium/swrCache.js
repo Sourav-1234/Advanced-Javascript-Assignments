@@ -11,6 +11,7 @@
 // 2. Always trigger fetchFn() to refresh and update the cache
 // 3. If cache is empty, wait for fetchFn() and return its result
 
+<<<<<<< HEAD
 async function swrCache(key, fetchFn) {
   // initialize cache if not present
   if (!swrCache.cache) {
@@ -41,5 +42,8 @@ async function swrCache(key, fetchFn) {
 
   return freshValue;
 }
+=======
+async function swrCache(key, fetchFn) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = swrCache;

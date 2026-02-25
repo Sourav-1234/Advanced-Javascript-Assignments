@@ -13,6 +13,7 @@
 // 4. Rollback by calling deleteFn on all successfully uploaded items
 // 5. Resolve only if all uploads succeed, otherwise reject after cleanup
 
+<<<<<<< HEAD
 
 async function transactionalBatchMap(items, limit, uploadFn, deleteFn) {
   const results = new Array(items.length);
@@ -76,3 +77,8 @@ async function transactionalBatchMap(items, limit, uploadFn, deleteFn) {
 }
 
 module.exports = transactionalBatchMap;
+=======
+async function transactionalBatchMap(items, limit, uploadFn, deleteFn) { }
+
+module.exports = transactionalBatchMap;
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954

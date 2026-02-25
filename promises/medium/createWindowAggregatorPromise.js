@@ -11,6 +11,7 @@
 // 3. If windowMs expires before reaching size, call batchProcessFn with the partial batch
 // 4. After processing, reset the batch and start a new window
 
+<<<<<<< HEAD
 function createWindowAggregatorPromise(batchProcessFn, size, windowMs) {
   let batch = [];
   let timer = null;
@@ -52,5 +53,8 @@ function createWindowAggregatorPromise(batchProcessFn, size, windowMs) {
 
   return { add };
 }
+=======
+function createWindowAggregatorPromise(batchProcessFn, size, windowMs) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = createWindowAggregatorPromise;

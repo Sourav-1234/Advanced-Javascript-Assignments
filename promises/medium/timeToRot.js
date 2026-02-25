@@ -13,6 +13,7 @@
 // 3. Return the minimum time required to rot all oranges, or -1 if impossible
 //
 
+<<<<<<< HEAD
 async function timeToRot(grid) {
   const rows = grid.length;
   const cols = grid[0].length;
@@ -65,5 +66,8 @@ async function timeToRot(grid) {
 
   return fresh === 0 ? minutes : -1;
 }
+=======
+async function timeToRot(grid) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = timeToRot;

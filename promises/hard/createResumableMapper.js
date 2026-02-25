@@ -11,6 +11,7 @@
 //
 // When resumed, processing must continue from where it paused
 // without re-running already completed tasks.
+<<<<<<< HEAD
 
 
 function createResumableMapper(tasks, limit) {
@@ -83,5 +84,8 @@ function createResumableMapper(tasks, limit) {
     },
   };
 }
+=======
+function createResumableMapper(tasks, limit) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = createResumableMapper;

@@ -9,6 +9,7 @@
 // 2. Minimize network calls (avoid fetching full arrays)
 // 3. Use Promise-based parallel requests when possible, with controlled execution
 //
+<<<<<<< HEAD
 async function findDistributedMedian(serverA, serverB) {
   const [lenA, lenB] = await Promise.all([
     serverA.length(),
@@ -84,3 +85,8 @@ async function findDistributedMedian(serverA, serverB) {
 }
 
 module.exports = findDistributedMedian;
+=======
+async function findDistributedMedian(serverA, serverB) { }
+
+module.exports = findDistributedMedian
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954

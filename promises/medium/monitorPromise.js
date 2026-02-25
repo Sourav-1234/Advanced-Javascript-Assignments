@@ -8,6 +8,7 @@
 // The original promise should continue normally (do not cancel it).
 // If the promise settles before thresholdMs, onHang must not be called.
 
+<<<<<<< HEAD
 function monitorPromise(promise, onHang, thresholdMs) {
   let timer;
 
@@ -29,5 +30,8 @@ function monitorPromise(promise, onHang, thresholdMs) {
 
   return hangPromise;
 }
+=======
+function monitorPromise(promise, onHang, thresholdMs) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = monitorPromise;

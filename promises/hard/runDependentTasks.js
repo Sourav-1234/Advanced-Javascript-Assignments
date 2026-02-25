@@ -10,6 +10,7 @@
 // 3. Ensure no task starts before all its dependencies are completed
 // 4. Throw an error if a cycle exists (invalid dependency graph)
 //
+<<<<<<< HEAD
 async function runDependentTasks(tasks, dependencies) {
   const inDegree = {};
   const graph = {};
@@ -69,5 +70,8 @@ async function runDependentTasks(tasks, dependencies) {
 
   return results;
 }
+=======
+async function runDependentTasks(tasks, dependencies) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = runDependentTasks;

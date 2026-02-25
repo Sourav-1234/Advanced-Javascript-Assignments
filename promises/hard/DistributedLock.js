@@ -20,6 +20,7 @@
 //    - if caller lost ownership, ignore / reject
 //
 class DistributedLock {
+<<<<<<< HEAD
   constructor() {
     this.locks = new Map(); // lockKey -> state
     this.ownerId = 0;
@@ -114,6 +115,10 @@ class DistributedLock {
       }
     };
   }
+=======
+  constructor() { }
+  async acquire(lockKey, ttlMs) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 }
 
 module.exports = DistributedLock;

@@ -12,6 +12,7 @@
 // 3. If refresh fails, keep stale cached data (do not crash)
 // 4. If multiple calls happen during refresh, deduplicate and share one refresh promise
 //
+<<<<<<< HEAD
 function createSWRManager(fetcherFn, ttl) {
   const cache = new Map();
 
@@ -63,5 +64,8 @@ function createSWRManager(fetcherFn, ttl) {
     }
   };
 }
+=======
+function createSWRManager(fetcherFn, ttl) { }
+>>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
 
 module.exports = createSWRManager;
