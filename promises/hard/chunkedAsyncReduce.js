@@ -13,7 +13,7 @@
 // 3. Return a single Promise that resolves with the final result
 // 4. Use setImmediate or MessageChannel for yielding (not setTimeout)
 //
-<<<<<<< HEAD
+
 async function chunkedAsyncReduce(data, hashFn, chunkSize) {
   if (!Array.isArray(data) || data.length === 0) {
     return undefined;
@@ -44,8 +44,3 @@ async function chunkedAsyncReduce(data, hashFn, chunkSize) {
 
 module.exports = chunkedAsyncReduce;
 
-=======
-async function chunkedAsyncReduce(data, hashFn, chunkSize) { }
-
-module.exports = chunkedAsyncReduce;
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
