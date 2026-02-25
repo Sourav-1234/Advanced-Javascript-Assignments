@@ -10,7 +10,7 @@
 // 2. If apiFn has not resolved within 200ms, start diskFn
 // 3. Resolve with whichever succeeds first
 // 4. Even if diskFn resolves first, apiFn must continue in background and update the cache
-<<<<<<< HEAD
+
 
 
 async function speculativeFetch(key, apiFn, diskFn) {
@@ -48,8 +48,7 @@ async function speculativeFetch(key, apiFn, diskFn) {
 
   return Promise.race([apiPromise, diskFallbackPromise]);
 }
-=======
-async function speculativeFetch(key, apiFn, diskFn) { }
->>>>>>> 503324ff797fa1fc9e35ec3d9a6fd4f67a90c954
+
+
 
 module.exports = speculativeFetch;
